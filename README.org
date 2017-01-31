@@ -1,0 +1,19 @@
+* What is this?
+  A Finder to support file-reuse
+
+* How to build and launch
+
+  1) Install node modules
+     #+BEGIN_SRC sh
+     $ npm install
+     #+END_SRC
+
+  2) Launch app
+     #+BEGIN_SRC sh
+     $ npm start
+     #+END_SRC
+
+  3) Build app
+     #+BEGIN_SRC sh
+     $ npm run build
+     #+END_SRC

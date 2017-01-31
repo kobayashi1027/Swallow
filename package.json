@@ -1,0 +1,22 @@
+{
+  "name": "MyFinder",
+  "version": "0.0.1",
+  "description": "Finder to support file-reuse",
+  "main": "app/main.js",
+  "scripts": {
+    "build": "npm run compile && coffee scripts/build.coffee",
+    "clean": "rm -rf app packages",
+    "compile": "rm -rf app && gulp compile",
+    "start": "npm run compile && electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "coffee-script": "^1.12.3",
+    "electron": "^1.4.15",
+    "electron-packager": "^8.5.1",
+    "gulp": "^3.9.1",
+    "gulp-coffee": "^2.3.3",
+    "gulp-sass": "^3.1.0"
+  }
+}

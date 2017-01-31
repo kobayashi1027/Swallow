@@ -1,0 +1,9 @@
+# For OSX
+.DS_Store
+
+# For Emacs backup files
+*~
+
+node_modules/
+app/
+packages/
