@@ -1,5 +1,6 @@
-packager = require('electron-packager')
-config = require('../package.json')
+packager = require 'electron-packager'
+config   = require '../package.json'
+devDeps  = Object.keys config.devDependencies
 
 packager {
   dir: './'
@@ -13,10 +14,9 @@ packager {
   prune: true
   ignore: [
     '.DS_Store',
-    '/packages/*',
-    '/scripts/*',
-    'node_modules/(electron|electron-packager)'
-  ]
+    '/packages($|/)',
+    '/scripts($|/)'
+  ].concat devDeps.map((name) -> '/node_modules/' + name + '($|/)')
 }, (err, appPath) ->
   if err
     throw new Error(err)
