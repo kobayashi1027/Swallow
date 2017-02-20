@@ -15,7 +15,8 @@ packager {
   ignore: [
     '.DS_Store',
     '/packages($|/)',
-    '/scripts($|/)'
+    '/scripts($|/)',
+    '/attic($|/)'
   ].concat devDeps.map((name) -> '/node_modules/' + name + '($|/)')
 }, (err, appPath) ->
   if err
