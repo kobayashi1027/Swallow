@@ -11,8 +11,6 @@ gulp.task "compile-sass", ->
   gulp.src "src/**/*.scss"
     .pipe sass()
     .pipe gulp.dest "app"
-  gulp.src "src/**/*.css"
-    .pipe gulp.dest "app"
 
 gulp.task "compile-html", ->
   gulp.src "src/**/*.html"
@@ -22,9 +20,14 @@ gulp.task "compile-vendor", ->
   gulp.src "vendor/**/*"
     .pipe gulp.dest "app"
 
+gulp.task "compile-img", ->
+  gulp.src "src/**/*.png"
+    .pipe gulp.dest "app"
+
 gulp.task "compile", [
   "compile-coffee",
   "compile-sass",
   "compile-html",
-  "compile-vendor"
+  "compile-vendor",
+  "compile-img"
   ]
