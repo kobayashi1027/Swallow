@@ -81,8 +81,9 @@ createFinderWindow = ->
 
 createPreferencesWindow = ->
   mainWindow = new BrowserWindow(
-    width: 800
-    height: 600)
+    width: 400
+    height: 150
+    titleBarStyle: "hidden")
   mainWindow.loadURL url.format(
     pathname: path.join __dirname, "views/preferences.html"
     protocol: "file:"

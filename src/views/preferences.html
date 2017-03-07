@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Preferences</title>
+    <meta charset="utf-8">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../stylesheets/photon.css">
+    <link rel="stylesheet" href="../stylesheets/preferences.css">
+
+    <!-- Javascript -->
+    <script src="../renderers/preferences.js" charset="utf-8"></script>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="window">
+
+      <!-- .toolbar-header sits at the top of your app -->
+      <header class="toolbar toolbar-header">
+        <h1 class="title">Preferences</h1>
+      </header>
+
+      <!-- Your app's content goes inside .window-content -->
+      <div class="window-content">
+	<form>
+	  <div class="form-group">
+	    <label>監視対象フォルダ:</label>
+	    <input type="target-folder" class="form-control" placeholder="Input target folder...">
+	  </div>
+	  <div class="form-actions">
+	    <button type="submit" class="btn btn-form btn-default">キャンセル</button>
+	    <button type="submit" class="btn btn-form btn-primary">OK</button>
+	  </div>
+	</form>
+      </div>
+    </div>
   </body>
 </html>
