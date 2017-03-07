@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+header {
+  -webkit-app-region: drag;
+}
+
+th {
+  &.name {
+    width: 40%;
+  }
+  &.date {
+    width: 30%;
+  }
+  &.size {
+    width: 15%;
+    text-align: right;
+  }
+  &.type {
+    width: 15%;
+  }
+}
+
+td {
+  &.size {
+    text-align: right;
+  }
+}
+
+// Make the icon width same (see font-awesome's fa-fw)
+.icon-fw:before {
+  width: 1.28571429em;
+  text-align: center;
+}

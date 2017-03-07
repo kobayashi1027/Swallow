@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Photon</title>
+    <title>MyFinder</title>
+    <meta charset="utf-8">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../stylesheets/photon.css">
+    <link rel="stylesheet" href="../stylesheets/finder.css">
 
     <!-- Javascript -->
     <script src="../renderers/finder.js" charset="utf-8"></script>
@@ -14,7 +16,15 @@
 
       <!-- .toolbar-header sits at the top of your app -->
       <header class="toolbar toolbar-header">
-        <h1 class="title">Photon</h1>
+        <h1 class="title">MyFinder</h1>
+	<div class="toolbar-actions">
+	  <button class="btn btn-default pull-right">
+	    <span class="icon icon icon-cw"></span>
+	  </button>
+	  <button class="btn btn-default pull-right">
+	    <span class="icon icon-lamp"></span>
+	  </button>
+	</div>
       </header>
 
       <!-- Your app's content goes inside .window-content -->
@@ -22,34 +32,14 @@
         <div class="pane-group">
           <div class="pane pane-sm sidebar">
             <nav class="nav-group">
-              <h5 class="nav-group-title">Favorites</h5>
-              <span class="nav-group-item">
-                <span class="icon icon-home"></span>
-                connors
-              </span>
+              <h5 class="nav-group-title">項目</h5>
               <span class="nav-group-item active">
-                <span class="icon icon-light-up"></span>
-                Photon
+                <span class="icon icon-archive"></span>
+                ファイル
               </span>
               <span class="nav-group-item">
-                <span class="icon icon-download"></span>
-                Downloads
-              </span>
-              <span class="nav-group-item">
-                <span class="icon icon-folder"></span>
-                Documents
-              </span>
-              <span class="nav-group-item">
-                <span class="icon icon-window"></span>
-                Applications
-              </span>
-              <span class="nav-group-item">
-                <span class="icon icon-signal"></span>
-                AirDrop
-              </span>
-              <span class="nav-group-item">
-                <span class="icon icon-monitor"></span>
-                Desktop
+                <span class="icon icon-loop"></span>
+                再利用履歴
               </span>
             </nav>
           </div>
@@ -58,120 +48,39 @@
             <table class="table-striped">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Kind</th>
-                  <th>Date Modified</th>
-                  <th>Author</th>
+                  <th class="name">名前</th>
+                  <th class="date">変更日</th>
+                  <th class="size">サイズ</th>
+                  <th class="type">種類</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>bars.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
+                  <td>
+		    <span class="icon icon-folder icon-fw"></span>
+		    sample_documents
+		  </td>
+                  <td>2017年2月22日 23:59</td>
+                  <td class="size">2 MB</td>
+                  <td>フォルダ</td>
                 </tr>
                 <tr>
-                  <td>base.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
+                  <td>
+		    <span class="icon icon-doc-text icon-fw"></span>
+		    sample.rb
+		  </td>
+                  <td>2017年2月22日 23:59</td>
+                  <td class="size">10 KB</td>
+                  <td>ドキュメント</td>
                 </tr>
                 <tr>
-                  <td>button-groups.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>buttons.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>docs.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>forms.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>grid.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>icons.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>images.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>lists.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>mixins.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>navs.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>normalize.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>photon.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>tables.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>tabs.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>utilities.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
-                </tr>
-                <tr>
-                  <td>variables.scss</td>
-                  <td>Document</td>
-                  <td>Oct 13, 2015</td>
-                  <td>connors</td>
+                  <td>
+		    <span class="icon icon-doc-text icon-fw"></span>
+		    sample.txt
+		  </td>
+                  <td>2017年2月22日 23:59</td>
+                  <td class="size">4 B</td>
+                  <td>ドキュメント</td>
                 </tr>
               </tbody>
             </table>

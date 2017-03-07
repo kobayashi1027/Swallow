@@ -60,7 +60,8 @@ createFinderWindow = ->
   # Create the browser window.
   mainWindow = new BrowserWindow(
     width: 800
-    height: 600)
+    height: 600
+    titleBarStyle: "hidden")
   # and load the index.html of the app.
   mainWindow.loadURL url.format(
     pathname: path.join __dirname, "views/finder.html"
@@ -98,8 +99,8 @@ main = ->
     createMenu()
   else
     console.log "prease set target ..."
-    # setTarget app.getPath('home')
-    createPreferencesWindow()
+    setTarget app.getPath('home')
+    # createPreferencesWindow()
 
 app.on "ready", main
 # Quit when all windows are closed.
