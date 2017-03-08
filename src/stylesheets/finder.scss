@@ -2,25 +2,50 @@
 
 @import "common";
 
-th {
-  &.name {
-    width: 40%;
-  }
-  &.date {
-    width: 30%;
-  }
-  &.size {
-    width: 15%;
-    text-align: right;
-  }
-  &.type {
-    width: 15%;
-  }
-}
+$active-color: #116cd6;
 
-td {
-  &.size {
-    text-align: right;
+table {
+  &#files {
+    th {
+      &.name {
+        width: 40%;
+      }
+      &.date {
+        width: 30%;
+      }
+      &.size {
+        width: 15%;
+        text-align: right;
+      }
+      &.type {
+        width: 15%;
+      }
+    }
+    td {
+      &.size {
+        text-align: right;
+      }
+    }
+  }
+  &#reuselogs {
+    display: none;
+    th {
+      &.source {
+        width: 35%;
+      }
+      &.destination {
+        width: 35%;
+      }
+      &.reuse-date {
+        width: 30%;
+      }
+    }
+  }
+  tbody tr {
+    &.active {
+      color: #fff;
+      background-color: $active-color !important;
+    }
   }
 }
 

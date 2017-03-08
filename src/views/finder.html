@@ -18,10 +18,10 @@
       <header class="toolbar toolbar-header">
         <h1 class="title">MyFinder</h1>
 	<div class="toolbar-actions">
-	  <button class="btn btn-default pull-right">
+	  <button class="btn btn-default pull-right" id="update-button">
 	    <span class="icon icon icon-cw"></span>
 	  </button>
-	  <button class="btn btn-default pull-right">
+	  <button class="btn btn-default pull-right" id="notification-button">
 	    <span class="icon icon-lamp"></span>
 	  </button>
 	</div>
@@ -33,57 +33,20 @@
           <div class="pane pane-sm sidebar">
             <nav class="nav-group">
               <h5 class="nav-group-title">項目</h5>
-              <span class="nav-group-item active">
+              <span class="nav-group-item active" data-tableid="files">
                 <span class="icon icon-archive"></span>
                 ファイル
               </span>
-              <span class="nav-group-item">
+              <span class="nav-group-item" data-tableid="reuselogs">
                 <span class="icon icon-loop"></span>
                 再利用履歴
               </span>
             </nav>
           </div>
 
-          <div class="pane">
-            <table class="table-striped">
-              <thead>
-                <tr>
-                  <th class="name">名前</th>
-                  <th class="date">変更日</th>
-                  <th class="size">サイズ</th>
-                  <th class="type">種類</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-		    <span class="icon icon-folder icon-fw"></span>
-		    sample_documents
-		  </td>
-                  <td>2017年2月22日 23:59</td>
-                  <td class="size">2 MB</td>
-                  <td>フォルダ</td>
-                </tr>
-                <tr>
-                  <td>
-		    <span class="icon icon-doc-text icon-fw"></span>
-		    sample.rb
-		  </td>
-                  <td>2017年2月22日 23:59</td>
-                  <td class="size">10 KB</td>
-                  <td>ドキュメント</td>
-                </tr>
-                <tr>
-                  <td>
-		    <span class="icon icon-doc-text icon-fw"></span>
-		    sample.txt
-		  </td>
-                  <td>2017年2月22日 23:59</td>
-                  <td class="size">4 B</td>
-                  <td>ドキュメント</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="pane" id="main">
+	    <span id="files-table"></span>
+	    <span id="reuselogs-table"></span>
           </div>
         </div>
       </div>
