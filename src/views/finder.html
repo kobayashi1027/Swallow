@@ -18,6 +18,18 @@
       <header class="toolbar toolbar-header">
         <h1 class="title">MyFinder</h1>
 	<div class="toolbar-actions">
+	  <div class="btn-group">
+	    <button class="btn btn-default" id="prev-button">
+              <span class="icon icon-left-open-big"></span>
+	    </button>
+	    <button class="btn btn-default" id="next-button">
+              <span class="icon icon-right-open-big"></span>
+	    </button>
+	  </div>
+	  <button class="btn btn-default" id="home-button">
+	    <span class="icon icon-home icon-text"></span>
+	    Home
+	  </button>
 	  <button class="btn btn-default pull-right" id="update-button">
 	    <span class="icon icon icon-cw"></span>
 	  </button>
@@ -45,8 +57,29 @@
           </div>
 
           <div class="pane" id="main">
-	    <span id="files-table"></span>
-	    <span id="reuselogs-table"></span>
+	    <table class="table-striped" id="files">
+	      <thead>
+		<tr>
+		  <th class="name">名前</th>
+		  <th class="date">変更日</th>
+		  <th class="size">サイズ</th>
+		  <th class="type">種類</th>
+		</tr>
+	      </thead>
+	      <tbody>
+	      </tbody>
+	    </table>
+	    <table class="table-striped" id="reuselogs">
+	      <thead>
+		<tr>
+		  <th class="source">再利用元</th>
+		  <th class="destination">再利用先</th>
+		  <th class="reuse-date">再利用日時</th>
+		</tr>
+	      </thead>
+	      <tbody>
+	      </tbody>
+	    </table>
           </div>
         </div>
       </div>

@@ -57,20 +57,15 @@ createAboutWindow = ->
   return
 
 createFinderWindow = ->
-  # Create the browser window.
   mainWindow = new BrowserWindow(
     width: 800
     height: 600
     titleBarStyle: "hidden")
-  # and load the index.html of the app.
   mainWindow.loadURL url.format(
     pathname: path.join __dirname, "views/finder.html"
     protocol: "file:"
     slashes: true
   )
-  # Open the DevTools.
-  # mainWindow.webContents.openDevTools()
-  # Emitted when the window is closed.
   mainWindow.on "closed", ->
     # Dereference the window object, usually you would store windows
     # in an array if your app supports multi windows, this is the time
@@ -91,17 +86,15 @@ createPreferencesWindow = ->
   )
   mainWindow.on "closed", ->
     mainWindow = null
-    createMenu() if checkTarget()
     return
   return
 
+module.exports =
+  getTarget: getTarget
+
 main = ->
-  if checkTarget()
-    createMenu()
-  else
-    console.log "prease set target ..."
-    setTarget app.getPath('home')
-    # createPreferencesWindow()
+  setTarget path.join(app.getPath('home'), "Docs")
+  createMenu()
 
 app.on "ready", main
 # Quit when all windows are closed.
