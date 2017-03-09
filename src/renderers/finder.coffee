@@ -3,6 +3,7 @@ $ = require "jquery"
 fs = require "fs"
 path = require "path"
 moment = require "moment"
+exec = require("child_process").exec
 
 currentTargetDir = remote.getTarget()
 targetDirLogs = []
@@ -74,7 +75,12 @@ ready = ->
     showMenu($(this))
   $("table#files tbody").on "dblclick", "tr", ->
     targetDirLogs = []
-    changeDir($(this).data("filename")) if $(this).data("type") == "folder"
+    filename = $(this).data("filename")
+    if $(this).data("type") == "folder"
+      changeDir(filename)
+    else if $(this).data("type") == "document"
+      # Notice: This command works only Mac
+      exec("open #{path.join currentTargetDir, filename}")
   $("#update-button").on "click", ->
     reloadFilesTable()
   $("#prev-button").on "click", ->
