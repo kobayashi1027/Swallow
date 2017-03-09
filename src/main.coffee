@@ -33,13 +33,13 @@ getTarget = ->
 createMenu = ->
   tray = new Tray(path.join __dirname, "icon.png")
   contextMenu = Menu.buildFromTemplate([
-    {label: "About MyFinder", click: -> createAboutWindow()},
+    {label: "About Swallow", click: -> createAboutWindow()},
     {type: "separator"},
     {label: "Show Finder", click: -> createFinderWindow()},
     {type: "separator"},
     {label: "Preferences", click: -> createPreferencesWindow()}
   ])
-  tray.setToolTip "MyFinder"
+  tray.setToolTip "Swallow"
   tray.setContextMenu contextMenu
 
 createAboutWindow = ->
