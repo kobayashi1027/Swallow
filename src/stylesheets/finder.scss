@@ -48,19 +48,3 @@ table {
     }
   }
 }
-
-// Make the icon width same (see font-awesome's fa-fw)
-.icon-fw:before {
-  width: 1.28571429em;
-  text-align: center;
-}
-
-// custom class of Grid
-.pane-one-fifth {
-  width: 20%;
-  flex: none;
-}
-.pane-one-sixth {
-  width: 16.7%;
-  flex: none;
-}
