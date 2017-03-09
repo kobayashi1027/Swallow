@@ -199,9 +199,23 @@ createSuggestWindow = ->
     slashes: true
   )
 
+createReuseFormWindow = ->
+  childWindow = new BrowserWindow(
+    parent: mainWindow
+    modal: true
+    width: 800
+    height: 800
+    titleBarStyle: "hidden")
+  childWindow.loadURL url.format(
+    pathname: path.join __dirname, "views/reuseform.html"
+    protocol: "file:"
+    slashes: true
+  )
+
 module.exports =
   getTarget: getTarget
   createSuggestWindow: createSuggestWindow
+  createReuseFormWindow: createReuseFormWindow
 
 main = ->
   setTarget path.join(app.getPath('home'), "Docs")

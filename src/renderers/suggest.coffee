@@ -27,7 +27,7 @@ ready = ->
   $("#cancel-button").on "click", ->
     remote.getCurrentWindow().close()
   $("#ok-button").on "click", ->
+    main.createReuseFormWindow()
     remote.getCurrentWindow().close()
-    # Next: open a reuse window
 
 $(document).ready(ready)
