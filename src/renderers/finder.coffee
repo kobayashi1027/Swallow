@@ -1,11 +1,12 @@
-remote = require('electron').remote.require("./main")
+remote = require('electron').remote
+main = remote.require("./main")
 $ = require "jquery"
 fs = require "fs"
 path = require "path"
 moment = require "moment"
 exec = require("child_process").exec
 
-currentTargetDir = remote.getTarget()
+currentTargetDir = main.getTarget()
 targetDirLogs = []
 
 updateHeaderTitle = ->
@@ -92,6 +93,8 @@ ready = ->
     targetDirLogs.shift()
   $("#home-button").on "click", ->
     targetDirLogs = []
-    changeDir remote.getTarget(), absolutePath = true
+    changeDir main.getTarget(), absolutePath = true
+  $("#notification-button").on "click", ->
+    main.createSuggestWindow()
 
 $(document).ready(ready)

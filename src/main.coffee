@@ -186,8 +186,22 @@ createPreferencesWindow = ->
     return
   return
 
+createSuggestWindow = ->
+  childWindow = new BrowserWindow(
+    parent: mainWindow
+    modal: true
+    width: 800
+    height: 300
+    titleBarStyle: "hidden")
+  childWindow.loadURL url.format(
+    pathname: path.join __dirname, "views/suggest.html"
+    protocol: "file:"
+    slashes: true
+  )
+
 module.exports =
   getTarget: getTarget
+  createSuggestWindow: createSuggestWindow
 
 main = ->
   setTarget path.join(app.getPath('home'), "Docs")

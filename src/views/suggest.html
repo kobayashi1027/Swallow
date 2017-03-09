@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Suggest</title>
+    <meta charset="utf-8">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../stylesheets/photon.css">
+    <link rel="stylesheet" href="../stylesheets/suggest.css">
+
+    <!-- Javascript -->
+    <script src="../renderers/suggest.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="window">
+
+      <!-- .toolbar-header sits at the top of your app -->
+      <header class="toolbar toolbar-header">
+        <h1 class="title">ファイル再利用の提案</h1>
+      </header>
+
+      <!-- Your app's content goes inside .window-content -->
+      <div class="window-content">
+	<div class="msg-area"></div>
+	<div class="button-area">
+	  <button class="btn btn-default" id="preview-button">ファイルのプレビュー</button>
+	  <button class="btn btn-default" id="cancel-button">キャンセル</button>
+	  <button class="btn btn-primary" id="ok-button">OK</button>
+	</div>
+      </div>
+    </div>
+  </body>
+</html>
