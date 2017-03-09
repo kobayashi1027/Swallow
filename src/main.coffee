@@ -155,8 +155,8 @@ createAboutWindow = ->
 
 createFinderWindow = ->
   mainWindow = new BrowserWindow(
-    width: 800
-    height: 600
+    width: 1400
+    height: 800
     titleBarStyle: "hidden")
   mainWindow.loadURL url.format(
     pathname: path.join __dirname, "views/finder.html"
