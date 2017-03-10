@@ -212,10 +212,24 @@ createReuseFormWindow = ->
     slashes: true
   )
 
+# for demo
+createDiffWindow = ->
+  childWindow = new BrowserWindow(
+    parent: mainWindow
+    width: 950
+    height: 500
+    titleBarStyle: "hidden")
+  childWindow.loadURL url.format(
+    pathname: path.join app.getPath('home'), "Docs/others/diff.html"
+    protocol: "file:"
+    slashes: true
+  )
+
 module.exports =
   getTarget: getTarget
   createSuggestWindow: createSuggestWindow
   createReuseFormWindow: createReuseFormWindow
+  createDiffWindow: createDiffWindow
 
 main = ->
   setTarget path.join(app.getPath('home'), "Docs")

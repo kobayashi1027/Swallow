@@ -8,6 +8,9 @@ exec = require("child_process").exec
 
 currentTargetDir = main.getTarget()
 targetDirLogs = []
+# for demo
+reuseFileName = "平成28年度計算機幹事活動報告書.txt"
+editIconTag = "<span class='icon icon-pencil icon-fw'></span>"
 
 updateHeaderTitle = ->
   $("header h1.title").html("<span class='icon icon-folder icon-fw'>#{currentTargetDir}</span>")
@@ -37,6 +40,7 @@ insertFile = (filePath) ->
       <td>
         #{iconTag}
         #{filename}
+        #{if filename == reuseFileName then editIconTag else ''}
       </td>
       <td>#{moment(filestat.mtime).format("YYYY年MM月DD日 HH:mm")}</td>
       <td class="size">#{filestat.size} バイト</td>
@@ -50,7 +54,6 @@ reloadFilesTable = ->
   insertFiles(currentTargetDir)
 
 changeDir = (dirname, absolutePath = false) ->
-  console.log(dirname)
   currentTargetDir = if absolutePath then dirname else path.join currentTargetDir, dirname.toString()
   updateHeaderTitle()
   reloadFilesTable()
@@ -62,7 +65,7 @@ showClickedNavContents = (navItem) ->
   $(".nav-group-item").removeClass("active")
   navItem.addClass("active")
 
-showMenu = (record) ->
+activateItem = (record) ->
   $("tbody tr").removeClass("active")
   record.addClass("active")
   # showmenu
@@ -73,7 +76,7 @@ ready = ->
   $(".nav-group-item").on "click", ->
     showClickedNavContents($(this))
   $("#main").on "click", "table tbody tr", ->
-    showMenu($(this))
+    activateItem($(this))
   $("table#files tbody").on "dblclick", "tr", ->
     targetDirLogs = []
     filename = $(this).data("filename")
@@ -96,5 +99,8 @@ ready = ->
     changeDir main.getTarget(), absolutePath = true
   $("#notification-button").on "click", ->
     main.createSuggestWindow()
+  $("table#files").on "click", ".icon-pencil", ->
+    $(this).parent()
+    main.createDiffWindow()
 
 $(document).ready(ready)
