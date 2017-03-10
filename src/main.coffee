@@ -30,7 +30,7 @@ getTarget = ->
   config = new Config
   config.get "target"
 
-createMenu = ->
+createTrayMenu = ->
   tray = new Tray(path.join __dirname, "icon.png")
   contextMenu = Menu.buildFromTemplate([
     {label: "About Swallow", click: -> createAboutWindow()},
@@ -41,6 +41,103 @@ createMenu = ->
   ])
   tray.setToolTip "Swallow"
   tray.setContextMenu contextMenu
+
+createMenu = ->
+  template = [
+    {
+      label: 'Edit'
+      submenu: [
+        { role: 'undo' }
+        { role: 'redo' }
+        { type: 'separator' }
+        { role: 'cut' }
+        { role: 'copy' }
+        { role: 'paste' }
+        { role: 'pasteandmatchstyle' }
+        { role: 'delete' }
+        { role: 'selectall' }
+      ]
+    }
+    {
+      label: 'View'
+      submenu: [
+        { role: 'reload' }
+        { role: 'forcereload' }
+        { role: 'toggledevtools' }
+        { type: 'separator' }
+        { role: 'resetzoom' }
+        { role: 'zoomin' }
+        { role: 'zoomout' }
+        { type: 'separator' }
+        { role: 'togglefullscreen' }
+      ]
+    }
+    {
+      role: 'window'
+      submenu: [
+        { role: 'minimize' }
+        { role: 'close' }
+      ]
+    }
+    {
+      role: 'help'
+      submenu: [ {
+        label: 'Learn More'
+        click: ->
+          require('electron').shell.openExternal 'http://electron.atom.io'
+          return
+
+      } ]
+    }
+  ]
+  if process.platform == 'darwin'
+    template.unshift
+      label: app.getName()
+      submenu: [
+        { role: 'about' }
+        { type: 'separator' }
+        {
+          role: 'services'
+          submenu: []
+        }
+        { type: 'separator' }
+        { role: 'hide' }
+        { role: 'hideothers' }
+        { role: 'unhide' }
+        { type: 'separator' }
+        { role: 'quit' }
+      ]
+    # Edit menu.
+    template[1].submenu.push { type: 'separator' },
+      label: 'Speech'
+      submenu: [
+        { role: 'startspeaking' }
+        { role: 'stopspeaking' }
+      ]
+    # Window menu.
+    template[3].submenu = [
+      {
+        label: 'Close'
+        accelerator: 'CmdOrCtrl+W'
+        role: 'close'
+      }
+      {
+        label: 'Minimize'
+        accelerator: 'CmdOrCtrl+M'
+        role: 'minimize'
+      }
+      {
+        label: 'Zoom'
+        role: 'zoom'
+      }
+      { type: 'separator' }
+      {
+        label: 'Bring All to Front'
+        role: 'front'
+      }
+    ]
+  menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu menu
 
 createAboutWindow = ->
   mainWindow = new BrowserWindow(
@@ -95,6 +192,7 @@ module.exports =
 main = ->
   setTarget path.join(app.getPath('home'), "Docs")
   createMenu()
+  createTrayMenu()
 
 app.on "ready", main
 # Quit when all windows are closed.
