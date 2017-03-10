@@ -12,7 +12,7 @@ reuseSource = path.join main.getTarget(), "manager-work/2016/平成27年度計�
 reuseDestination = path.join main.getTarget(), "manager-work/2017/平成28年度計算機幹事活動報告書.txt"
 otherReuseItems = [
   "計算機幹事仕事一覧.txt"
-  "Makefile"
+  "活動記録.xlsx"
   "関連資料"
 ]
 
