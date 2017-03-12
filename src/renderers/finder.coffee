@@ -68,7 +68,16 @@ showClickedNavContents = (navItem) ->
 activateItem = (record) ->
   $("tbody tr").removeClass("active")
   record.addClass("active")
-  # showmenu
+
+showContextMenu = ->
+  template = [
+    {label: "開く"}
+    {label: "このファイルを再利用"}
+    {type: "separator"},
+    {label: "情報を見る"}
+  ]
+  contextMenu = remote.Menu.buildFromTemplate(template)
+  contextMenu.popup(remote.getCurrentWindow(), async: true)
 
 ready = ->
   updateHeaderTitle()
@@ -85,6 +94,9 @@ ready = ->
     else if $(this).data("type") == "document"
       # Notice: This command works only Mac
       exec("open #{path.join currentTargetDir, filename}")
+  $("table#files tbody").on "contextmenu", "tr", ->
+    activateItem($(this))
+    showContextMenu()
   $("#update-button").on "click", ->
     reloadFilesTable()
   $("#prev-button").on "click", ->
