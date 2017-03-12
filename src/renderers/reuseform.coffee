@@ -8,8 +8,8 @@ folderIcon = "<span class='icon icon-folder icon-text'></span>"
 fileIcon = "<span class='icon icon-doc-text icon-text'></span>"
 removeIcon = "<span class='icon icon-cancel icon-text'></span>"
 
-reuseSource = path.join main.getTarget(), "manager-work/2016/平成27年度計算機幹事活動報告書.txt"
-reuseDestination = path.join main.getTarget(), "manager-work/2017/平成28年度計算機幹事活動報告書.txt"
+reuseSource = path.join main.getTarget(), "幹事/2016/平成27年度計算機幹事活動報告書.txt"
+reuseDestination = path.join main.getTarget(), "幹事/2017/平成28年度計算機幹事活動報告書.txt"
 otherReuseItems = [
   "計算機幹事仕事一覧.txt"
   "活動記録.xlsx"

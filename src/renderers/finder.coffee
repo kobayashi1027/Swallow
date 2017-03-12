@@ -101,6 +101,6 @@ ready = ->
     main.createSuggestWindow()
   $("table#files").on "click", ".icon-pencil", ->
     $(this).parent()
-    main.createDiffWindow()
+    main.createWindowFromOutsideTemplate path.join(main.getTarget(), "その他/diff.html")
 
 $(document).ready(ready)
