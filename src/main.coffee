@@ -2,6 +2,7 @@ electron = require "electron"
 path = require "path"
 url = require "url"
 Config = require "electron-config"
+fs = require "fs-extra"
 
 app = electron.app
 BrowserWindow = electron.BrowserWindow
@@ -230,11 +231,18 @@ module.exports =
   createSuggestWindow: createSuggestWindow
   createReuseFormWindow: createReuseFormWindow
   createWindowFromOutsideTemplate: createWindowFromOutsideTemplate
+  ReuseInfo: ReuseInfo
+
 
 main = ->
   setTarget path.join(app.getPath('home'), "Docs")
-  createMenu()
-  createTrayMenu()
+
+  # for demo
+  ReuseInfo.remove {}, multi: true
+  seedReuseInfos = fs.readJsonSync path.join(getTarget(), "その他/reuseinfo_seeds.json")
+  ReuseInfo.insert seedReuseInfos, (err) ->
+    createMenu()
+    createTrayMenu()
 
 app.on "ready", main
 # Quit when all windows are closed.

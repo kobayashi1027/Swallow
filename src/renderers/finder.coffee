@@ -1,15 +1,19 @@
 remote = require('electron').remote
 main = remote.require("./main")
 $ = require "jquery"
-fs = require "fs"
+fs = require "fs-extra"
 path = require "path"
 moment = require "moment"
 exec = require("child_process").exec
+
+# Datastore
+ReuseInfo = main.ReuseInfo
 
 currentTargetDir = main.getTarget()
 targetDirLogs = []
 # for demo
 reuseFileName = "平成28年度計算機幹事活動報告書.txt"
+dataPath = path.join main.getTarget(), "その他"
 editIconTag = "<span class='icon icon-pencil icon-fw'></span>"
 
 updateHeaderTitle = ->
@@ -17,6 +21,7 @@ updateHeaderTitle = ->
 
 initFilesTable = () ->
   insertFiles(currentTargetDir)
+  insertReuseInfos()
 
 insertFiles = (targetDir) ->
   fs.readdir targetDir, (err, files) ->
@@ -49,9 +54,32 @@ insertFile = (filePath) ->
   """
   $("table#files tbody").append(data)
 
+insertReuseInfos = ->
+  ReuseInfo.find({}).sort(time: 1).exec (err, reuseInfos) ->
+    reuseInfos.forEach (reuseInfo) ->
+      insertReuseInfo reuseInfo
+
+insertReuseInfo = (reuseInfo) ->
+  if reuseInfo.type == "document"
+    iconTag = "<span class='icon icon-doc-text icon-fw'></span>"
+  else if reuseInfo.type == "folder"
+    iconTag = "<span class='icon icon-folder icon-fw'></span>"
+  data = """
+    <tr>
+      <td>#{iconTag} #{reuseInfo.source}</td>
+      <td>#{iconTag} #{reuseInfo.destination}</td>
+      <td>#{moment(reuseInfo.time).format("YYYY年MM月DD日 HH:mm")}</td>
+    </tr>
+  """
+  $("table#reuseinfos tbody").append(data)
+
 reloadFilesTable = ->
   $("table#files tbody").empty()
   insertFiles(currentTargetDir)
+
+reloadReuseInfosTable = ->
+  $("table#reuseinfos tbody").empty()
+  insertReuseInfos()
 
 changeDir = (dirname, absolutePath = false) ->
   currentTargetDir = if absolutePath then dirname else path.join currentTargetDir, dirname.toString()
@@ -99,6 +127,7 @@ ready = ->
     showContextMenu()
   $("#update-button").on "click", ->
     reloadFilesTable()
+    reloadReuseInfosTable()
   $("#prev-button").on "click", ->
     basename = path.basename(currentTargetDir)
     targetDirLogs.unshift basename if basename.length != 0
@@ -113,6 +142,6 @@ ready = ->
     main.createSuggestWindow()
   $("table#files").on "click", ".icon-pencil", ->
     $(this).parent()
-    main.createWindowFromOutsideTemplate path.join(main.getTarget(), "その他/diff.html")
+    main.createWindowFromOutsideTemplate path.join(dataPath, "diff.html")
 
 $(document).ready(ready)

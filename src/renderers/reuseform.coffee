@@ -3,6 +3,10 @@ main = remote.require("./main")
 $ = require "jquery"
 path = require "path"
 fs = require "fs-extra"
+moment = require "moment"
+
+# Datastore
+ReuseInfo = main.ReuseInfo
 
 folderIcon = "<span class='icon icon-folder icon-text'></span>"
 fileIcon = "<span class='icon icon-doc-text icon-text'></span>"
@@ -37,10 +41,22 @@ insertReuseItems = ->
 
 doReuse = ->
   fs.copySync reuseSource, reuseDestination
+  createReuseInfo reuseSource, reuseDestination
   otherReuseItems.forEach (item) ->
     src = path.join (path.dirname reuseSource), item
     dest = path.join (path.dirname reuseDestination), item
     fs.copySync src, dest
+    createReuseInfo src, dest
+
+createReuseInfo = (source, destination) ->
+  fileStat = fs.statSync source
+  type = if fileStat.isDirectory() then "folder" else "document"
+  reuseInfo =
+    source: path.basename source
+    destination: path.basename destination
+    type: type
+    time: moment().format("YYYY-MM-DD HH:mm")
+  ReuseInfo.insert reuseInfo
 
 ready = ->
   insertFolderName()
