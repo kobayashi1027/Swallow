@@ -9,25 +9,26 @@ exec = require("child_process").exec
 # Datastore
 ReuseInfo = main.ReuseInfo
 
-currentTargetDir = main.getTarget()
-targetDirLogs = []
+homeDir = main.getConfig "target"
+currentDir = homeDir
+changeDirLog = []
 # for demo
-reuseFileName = "平成28年度計算機幹事活動報告書.txt"
-dataPath = path.join main.getTarget(), "その他"
+reuseFileName = path.basename main.getConfig("reuseDestinationFile")
+dataPath = path.join homeDir, main.getConfig("dataDir")
 editIconTag = "<span class='icon icon-pencil icon-fw'></span>"
 
 updateHeaderTitle = ->
-  $("header h1.title").html("<span class='icon icon-folder icon-fw'>#{currentTargetDir}</span>")
+  $("header h1.title").html("<span class='icon icon-folder icon-fw'>#{currentDir}</span>")
 
 initFilesTable = () ->
-  insertFiles(currentTargetDir)
+  insertFiles(currentDir)
   insertReuseInfos()
 
-insertFiles = (targetDir) ->
-  fs.readdir targetDir, (err, files) ->
+insertFiles = (dir) ->
+  fs.readdir dir, (err, files) ->
     throw err if err
     files.forEach (file) ->
-      insertFile(path.join(targetDir, file))
+      insertFile path.join(dir, file)
 
 insertFile = (filePath) ->
   filestat = fs.statSync filePath
@@ -75,14 +76,14 @@ insertReuseInfo = (reuseInfo) ->
 
 reloadFilesTable = ->
   $("table#files tbody").empty()
-  insertFiles(currentTargetDir)
+  insertFiles(currentDir)
 
 reloadReuseInfosTable = ->
   $("table#reuseinfos tbody").empty()
   insertReuseInfos()
 
 changeDir = (dirname, absolutePath = false) ->
-  currentTargetDir = if absolutePath then dirname else path.join currentTargetDir, dirname.toString()
+  currentDir = if absolutePath then dirname else path.join currentDir, dirname.toString()
   updateHeaderTitle()
   reloadFilesTable()
 
@@ -115,13 +116,13 @@ ready = ->
   $("#main").on "click", "table tbody tr", ->
     activateItem($(this))
   $("table#files tbody").on "dblclick", "tr", ->
-    targetDirLogs = []
+    changeDirLog = []
     filename = $(this).data("filename")
     if $(this).data("type") == "folder"
       changeDir(filename)
     else if $(this).data("type") == "document"
       # Notice: This command works only Mac
-      exec("open #{path.join currentTargetDir, filename}")
+      exec("open #{path.join currentDir, filename}")
   $("table#files tbody").on "contextmenu", "tr", ->
     activateItem($(this))
     showContextMenu()
@@ -129,15 +130,15 @@ ready = ->
     reloadFilesTable()
     reloadReuseInfosTable()
   $("#prev-button").on "click", ->
-    basename = path.basename(currentTargetDir)
-    targetDirLogs.unshift basename if basename.length != 0
+    basename = path.basename(currentDir)
+    changeDirLog.unshift basename if basename.length != 0
     changeDir ".."
   $("#next-button").on "click", ->
-    changeDir targetDirLogs[0] if targetDirLogs.length != 0
-    targetDirLogs.shift()
+    changeDir changeDirLog[0] if changeDirLog.length != 0
+    changeDirLog.shift()
   $("#home-button").on "click", ->
-    targetDirLogs = []
-    changeDir main.getTarget(), absolutePath = true
+    changeDirLog = []
+    changeDir homeDir, absolutePath = true
   $("#notification-button").on "click", ->
     main.createSuggestWindow()
   $("table#files").on "click", ".icon-pencil", ->

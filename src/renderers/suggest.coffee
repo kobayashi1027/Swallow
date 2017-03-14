@@ -4,8 +4,8 @@ $ = require "jquery"
 path = require "path"
 exec = require("child_process").exec
 
-suggestFile = path.join main.getTarget(), "幹事/2016/平成27年度計算機幹事活動報告書.txt"
-prevReuseTime = "2016年3月17日 09:52:39"
+suggestFile = path.join main.getConfig("target"), main.getConfig("reuseSourceFile")
+prevReuseTime = main.getConfig "prevReuseTime"
 
 folderIcon = "<span class='icon icon-folder icon-fw'></span>"
 fileIcon = "<span class='icon icon-doc-text icon-fw'></span>"

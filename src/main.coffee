@@ -23,13 +23,13 @@ checkTarget = ->
   else
     return false
 
-setTarget = (target) ->
+setConfig = (key, value) ->
   config = new Config
-  config.set "target", target
+  config.set key, value
 
-getTarget = ->
+getConfig = (key) ->
   config = new Config
-  config.get "target"
+  config.get key
 
 createTrayMenu = ->
   tray = new Tray(path.join __dirname, "icon.png")
@@ -227,7 +227,7 @@ createWindowFromOutsideTemplate = (path) ->
   )
 
 module.exports =
-  getTarget: getTarget
+  getConfig: getConfig
   createSuggestWindow: createSuggestWindow
   createReuseFormWindow: createReuseFormWindow
   createWindowFromOutsideTemplate: createWindowFromOutsideTemplate
@@ -235,11 +235,17 @@ module.exports =
 
 
 main = ->
-  setTarget path.join(app.getPath('home'), "Docs")
+  # (for demo) set infos to config file
+  setConfig "target", path.join(app.getPath('home'), "Docs")
+  setConfig "reuseSourceFile", "幹事/2016/平成27年度計算機幹事活動報告書.txt"
+  setConfig "reuseDestinationFile", "幹事/2017/平成28年度計算機幹事活動報告書.txt"
+  setConfig "reuseItems", ["報告書サンプル.txt", "計算機幹事仕事一覧.xlsx", "関連資料"]
+  setConfig "dataDir", "その他"
+  setConfig "prevReuseTime", "2016年3月17日 09:52:39"
 
-  # for demo
+  # (for demo) create reuseInfo database
   ReuseInfo.remove {}, multi: true
-  seedReuseInfos = fs.readJsonSync path.join(getTarget(), "その他/reuseinfo_seeds.json")
+  seedReuseInfos = fs.readJsonSync path.join(getConfig("target"), "その他/reuseinfo_seeds.json")
   ReuseInfo.insert seedReuseInfos, (err) ->
     createMenu()
     createTrayMenu()
