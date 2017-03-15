@@ -8,9 +8,8 @@ moment = require "moment"
 # Datastore
 ReuseInfo = main.ReuseInfo
 
-folderIcon = "<span class='icon icon-folder icon-text'></span>"
-fileIcon = "<span class='icon icon-doc-text icon-text'></span>"
-removeIcon = "<span class='icon icon-cancel icon-text'></span>"
+folderIcon = "<span class='icon icon-folder icon-fw'></span>"
+fileIcon = "<span class='icon icon-doc-text icon-fw'></span>"
 
 reuseSource = path.join main.getConfig("target"), main.getConfig("reuseSourceFile")
 reuseDestination = path.join main.getConfig("target"), main.getConfig("reuseDestinationFile")
@@ -28,12 +27,13 @@ insertReuseItems = ->
     file = fs.statSync path.join(folder, item)
     icon = if file.isDirectory() then folderIcon else fileIcon
     data = """
-      <button type="button" class="btn btn-default">
-        #{removeIcon} #{icon}
-        #{item}
-      </button>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" checked> #{icon} #{item}
+        </label>
+      </div
     """
-    $("pre#reuse-items").append(data)
+    $("div#reuse-items").append(data)
 
 doReuse = ->
   fs.copySync reuseSource, reuseDestination
