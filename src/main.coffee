@@ -8,6 +8,7 @@ app = electron.app
 BrowserWindow = electron.BrowserWindow
 Tray = electron.Tray
 Menu = electron.Menu
+ipcMain = electron.ipcMain
 
 # init models
 Models = require "./lib/models"
@@ -226,11 +227,29 @@ createWindowFromOutsideTemplate = (path) ->
     slashes: true
   )
 
+# for demo
+createPrevReuseFormWindow = (reuseSourcePath) ->
+  # return reuse-source path to renderer
+  ipcMain.once "getReuseSourcePath", (event, arg) ->
+    event.returnValue = reuseSourcePath
+  childWindow = new BrowserWindow(
+    parent: mainWindow
+    modal: true
+    width: 800
+    height: 800
+    titleBarStyle: "hidden")
+  childWindow.loadURL url.format(
+    pathname: path.join __dirname, "views/prevreuseform.html"
+    protocol: "file:"
+    slashes: true
+  )
+
 module.exports =
   getConfig: getConfig
   createSuggestWindow: createSuggestWindow
   createReuseFormWindow: createReuseFormWindow
   createWindowFromOutsideTemplate: createWindowFromOutsideTemplate
+  createPrevReuseFormWindow: createPrevReuseFormWindow
   ReuseInfo: ReuseInfo
 
 

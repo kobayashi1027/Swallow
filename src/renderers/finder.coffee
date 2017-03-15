@@ -88,20 +88,22 @@ changeDir = (dirname, absolutePath = false) ->
   reloadFilesTable()
 
 showClickedNavContents = (navItem) ->
-  tableId = navItem.attr("data-tableid")
+  tableId = $(navItem).attr("data-tableid")
   $("table").hide()
   $('#' + tableId).show()
   $(".nav-group-item").removeClass("active")
-  navItem.addClass("active")
+  $(navItem).addClass("active")
 
 activateItem = (record) ->
   $("tbody tr").removeClass("active")
-  record.addClass("active")
+  $(record).addClass("active")
 
-showContextMenu = ->
+showContextMenu = (item) ->
+  type = if $(item).data("type") == "folder" then "フォルダ" else "ファイル"
+  filePath = path.join currentDir, $(item).data("filename").toString()
   template = [
     {label: "開く"}
-    {label: "このファイルを再利用"}
+    {label: "この#{type}を再利用", click: -> main.createPrevReuseFormWindow filePath}
     {type: "separator"},
     {label: "情報を見る"}
   ]
@@ -112,9 +114,9 @@ ready = ->
   updateHeaderTitle()
   initFilesTable()
   $(".nav-group-item").on "click", ->
-    showClickedNavContents($(this))
+    showClickedNavContents(this)
   $("#main").on "click", "table tbody tr", ->
-    activateItem($(this))
+    activateItem(this)
   $("table#files tbody").on "dblclick", "tr", ->
     changeDirLog = []
     filename = $(this).data("filename")
@@ -124,8 +126,8 @@ ready = ->
       # Notice: This command works only Mac
       exec("open #{path.join currentDir, filename}")
   $("table#files tbody").on "contextmenu", "tr", ->
-    activateItem($(this))
-    showContextMenu()
+    activateItem(this)
+    showContextMenu(this)
   $("#update-button").on "click", ->
     reloadFilesTable()
     reloadReuseInfosTable()
@@ -142,7 +144,6 @@ ready = ->
   $("#notification-button").on "click", ->
     main.createSuggestWindow()
   $("table#files").on "click", ".icon-pencil", ->
-    $(this).parent()
     main.createWindowFromOutsideTemplate path.join(dataPath, "diff.html")
 
 $(document).ready(ready)
